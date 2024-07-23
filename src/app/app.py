@@ -66,7 +66,7 @@ class PortfolioApp:
 
     def show_project_details(self, project):
         link = project.get('link', '')
-        title_string = project['title'] if link == '' else f'[{project['title']}]({link})'
+        title_string = project['title'] if link == '' else f"[{project['title']}]({link})"
         st.write(f"### {title_string}")
         st.write(project['details'])
         techs = ""
