@@ -1,7 +1,9 @@
-import streamlit as st
 import webbrowser
 
+import streamlit as st
+
 from src.app.chat import Chat
+
 
 class PortfolioApp:
     def __init__(self):

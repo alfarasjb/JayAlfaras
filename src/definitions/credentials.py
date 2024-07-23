@@ -1,4 +1,5 @@
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -19,4 +20,4 @@ class EnvVariables:
 
     @classmethod
     def chat_model(cls) -> str:
-        return os.getenv("CHAT_MODEL")
+        return os.getenv("CHAT_MODEL", "gpt-4o")
