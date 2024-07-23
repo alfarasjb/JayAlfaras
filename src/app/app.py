@@ -13,6 +13,8 @@ class PortfolioApp:
 
     def _initialize_app(self):
         st.set_page_config(page_title="Jay Alfaras", layout="centered", initial_sidebar_state="expanded")
+        with open("style/style.css") as f:
+            st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
         self._initialize_states()
 
     def _initialize_states(self):
@@ -59,7 +61,7 @@ class PortfolioApp:
         st.write('---')
         st.subheader("Project Gallery")
         for project in PROJECTS:
-            with st.expander(project['title']):
+            with st.expander(project['title'].upper()):
                 self.show_project_details(project)
 
     def show_project_details(self, project):
