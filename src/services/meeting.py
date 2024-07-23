@@ -22,7 +22,6 @@ class Meeting:
         self.last_recorded_meeting_start = ""
         self.last_recorded_meeting_end = ""
 
-
     def get_user_uri(self):
         endpoint = self.calendly_base_url + "/users/me"
         response = requests.get(endpoint, headers=self.headers)

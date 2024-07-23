@@ -1,6 +1,7 @@
 import streamlit as st
 
 from src.services.chat_model import ChatModel
+from src.services.prompts.prompts import BEGIN_SENTENCE
 
 
 class Chat:
@@ -13,7 +14,7 @@ class Chat:
         # Initialize Chat History
         if "messages" not in st.session_state:
             st.session_state.messages = [
-                {"role": "assistant", "content": "Hello! How can I help you today?"}
+                {"role": "assistant", "content": BEGIN_SENTENCE}
             ]
 
         # Display chat messages from history on app rerun

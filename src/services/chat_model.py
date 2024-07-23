@@ -1,6 +1,7 @@
 from openai import OpenAI
 from src.definitions.credentials import Credentials, EnvVariables
 from src.utils.llm_functions import TOOLS
+from src.services.prompts.prompts import SYSTEM_PROMPT
 
 
 class ChatModel:
@@ -9,7 +10,7 @@ class ChatModel:
         self.model = OpenAI(api_key=Credentials.openai_api_key())
         self.chat_history = []
         self.max_tokens = 4096
-        self.system_prompt = ""
+        self.system_prompt = SYSTEM_PROMPT
 
     def chat(self, user_prompt: str = "") -> str:
         hist_messages = [
