@@ -1,7 +1,7 @@
 import webbrowser
 
 import streamlit as st
-
+import streamlit.components.v1 as components
 from src.app.chat import Chat
 
 
@@ -51,7 +51,12 @@ class PortfolioApp:
         st.subheader("Gallery")
 
     def book_a_meeting(self):
-        url = 'https://calendly.com/alfarasjb'
-        webbrowser.open(url)
-
+        # url = 'https://calendly.com/alfarasjb'
+        # webbrowser.open(url)
+        js = """
+            <script type="text/javascript">
+                window.open("https://calendly.com/alfarasjb", "_blank");
+            </script>
+            """
+        components.html(js)
 
