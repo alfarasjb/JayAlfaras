@@ -1,6 +1,6 @@
 
-img[alt=repo] { width: 42px; }
-img[alt=linkedin] { width: 48px; padding-top: 2px;}
+img[alt=repo] { width: 42px; padding-top: 6px}
+img[alt=linkedin] { width: 48px; padding-top: 8px;}
 
 #MainMenu {visibility:hidden;}
 footer{visibility:hidden;}

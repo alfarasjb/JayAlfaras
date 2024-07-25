@@ -13,6 +13,17 @@ class PortfolioApp:
 
     def _initialize_app(self):
         st.set_page_config(page_title="Jay Alfaras", layout="centered", initial_sidebar_state="expanded")
+        st.markdown("""
+            <style>
+                .main .block-container {
+                    max-width: 60%;
+                    padding-top: 2rem; 
+                    padding-right: 2rem;
+                    padding-left: 2rem; 
+                    padding-bottom: 2rem; 
+                }
+            </style>
+        """, unsafe_allow_html=True)
         with open("style/style.css") as f:
             st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
         self._initialize_states()
@@ -25,11 +36,42 @@ class PortfolioApp:
         st.session_state.sidebar_open = not st.session_state.sidebar_open
 
     def main(self):
-        st.title("Jay Benedict Alfaras")
-        st.subheader("AI Engineer")
-
+        st.markdown("""
+            <style>
+                .title {
+                    text-align: center;
+                    font-size: 44px;
+                    font-weight: bold;
+                }
+                .header {
+                    text-align: center; 
+                    font-size: 30px;
+                    font-weight: bold;
+                }
+            </style>
+        """, unsafe_allow_html=True)
+        # st.title("Jay Benedict Alfaras")
+        st.markdown("""
+            <div class="title">
+                Jay Benedict Alfaras
+            </div>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+                    <div class="header">
+                        AI Engineer
+                    </div>
+                """, unsafe_allow_html=True)
+        # st.subheader("AI Engineer")
+        git_repo = f"[![repo]({c.GIT_ICON})]({c.GIT_LINK})"
+        linkedin = f"[![linkedin]({c.LINKEDIN_ICON})]({c.LINKEDIN_LINK})"
+        _, _, _, _, linkedin_col, git_col, _, _,  _, _ = st.columns([2, 2, 2, 2, 1, 1, 2, 2, 2, 2])
+        linkedin_col.markdown(linkedin, unsafe_allow_html=True)
+        git_col.markdown(git_repo, unsafe_allow_html=True)
         st.write('---')
-        st.write(
+        description, projects = st.columns(2)
+
+        description.subheader("About Me")
+        description.write(
             """
             I am an AI Engineer from the Philippines. My work focuses on developing and deploying AI Applications for our clients. 
             
@@ -40,12 +82,11 @@ class PortfolioApp:
             primarily through the MetaTrader platform, with MQL4, MQL5, and Pinescript.
             """
         )
+        projects.subheader("Project Gallery")
+        for project in PROJECTS:
+            with projects.expander(project['title'].upper()):
+                self.show_project_details(project)
 
-        git_repo = f"[![repo]({c.GIT_ICON})]({c.GIT_LINK})"
-        linkedin = f"[![linkedin]({c.LINKEDIN_ICON})]({c.LINKEDIN_LINK})"
-        linkedin_col, git_col, _, _, _, _, _ = st.columns(7)
-        linkedin_col.markdown(linkedin, unsafe_allow_html=True)
-        git_col.markdown(git_repo, unsafe_allow_html=True)
         st.write('---')
         st.subheader("Got any questions?")
         assistant, meeting, _ = st.columns([2, 2, 4])
@@ -57,12 +98,6 @@ class PortfolioApp:
         if st.session_state.sidebar_open:
             with st.sidebar:
                 self.chat.chat_box()
-
-        st.write('---')
-        st.subheader("Project Gallery")
-        for project in PROJECTS:
-            with st.expander(project['title'].upper()):
-                self.show_project_details(project)
 
     def show_project_details(self, project):
         link = project.get('link', '')
