@@ -1,12 +1,13 @@
 import streamlit as st
 
 from src.services.chat_model import ChatModel
+from src.services.langchain_chat_model import LangChainChatModel
 from src.services.prompts.prompts import BEGIN_SENTENCE
 
 
 class Chat:
     def __init__(self):
-        self.chat_model = ChatModel()
+        self.chat_model = LangChainChatModel()
 
     def chat_box(self):
         messages = st.container(height=500)

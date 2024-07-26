@@ -94,6 +94,13 @@ class PortfolioApp:
         assistant, meeting, _ = st.columns([2, 2, 4])
         assistant.button(label="Talk to my assistant", use_container_width=True, on_click=self.toggle_sidebar)
         meeting.button(label="Book a meeting", use_container_width=True, on_click=self.book_a_meeting)
+        st.write('---')
+        technologies_used = ['Python', 'Streamlit', 'LangChain', 'OpenAI']
+        st.write("This website includes the usage of")
+        techs = ""
+        for tech in technologies_used:
+            techs += f'`{tech}` '
+        st.write(techs)
 
         # st.write("Or you can ask my assistant to book a meeting..")
 
