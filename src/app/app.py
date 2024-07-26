@@ -36,37 +36,39 @@ class PortfolioApp:
         st.session_state.sidebar_open = not st.session_state.sidebar_open
 
     def main(self):
-        st.markdown("""
-            <style>
-                .title {
-                    text-align: center;
-                    font-size: 44px;
-                    font-weight: bold;
-                }
-                .header {
-                    text-align: center; 
-                    font-size: 30px;
-                    font-weight: bold;
-                }
-            </style>
-        """, unsafe_allow_html=True)
-        # st.title("Jay Benedict Alfaras")
-        st.markdown("""
-            <div class="title">
-                Jay Benedict Alfaras
-            </div>
-        """, unsafe_allow_html=True)
-        st.markdown("""
-                    <div class="header">
-                        AI Engineer
+        # Header content
+        st.markdown(
+            """
+            <div class="header">
+                <div class="header-left">
+                    <div class="header-title">Jay Benedict Alfaras</div>
+                    <div class="header-job-title">AI Engineer</div>
+                </div>
+                <div class="header-right">
+                    <div class="header-link">
+                        <img src={LINKEDIN_ICON} alt="LinkedIn">
+                        <a href={LINKEDIN_LINK} target="_blank">linkedin.com/in/{LINKEDIN_USERNAME}</a>
                     </div>
-                """, unsafe_allow_html=True)
-        # st.subheader("AI Engineer")
-        git_repo = f"[![repo]({c.GIT_ICON})]({c.GIT_LINK})"
-        linkedin = f"[![linkedin]({c.LINKEDIN_ICON})]({c.LINKEDIN_LINK})"
-        _, _, _, _, linkedin_col, git_col, _, _,  _, _ = st.columns([2, 2, 2, 2, 1, 1, 2, 2, 2, 2])
-        linkedin_col.markdown(linkedin, unsafe_allow_html=True)
-        git_col.markdown(git_repo, unsafe_allow_html=True)
+                    <div class="header-link">
+                        <img src={GITHUB_ICON} alt="GitHub">
+                        <a href={GITHUB_LINK} target="_blank">github.com/{GIT_USERNAME}</a>
+                    </div>
+                    <div class="header-link">
+                        <img src=https://cdn-icons-png.flaticon.com/512/561/561127.png alt="Email">
+                        <a href="mailto:alfarasjb@gmail.com" target="_blank">alfarasjb@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+            """.format(LINKEDIN_ICON=c.LINKEDIN_ICON,
+                       GITHUB_ICON=c.GIT_ICON,
+                       LINKEDIN_LINK=c.LINKEDIN_LINK,
+                       GITHUB_LINK=c.GIT_LINK,
+                       GIT_USERNAME="alfarasjb",
+                       LINKEDIN_USERNAME="jay-alfaras"),
+            unsafe_allow_html=True
+        )
+
+
         st.write('---')
         description, projects = st.columns(2)
 
