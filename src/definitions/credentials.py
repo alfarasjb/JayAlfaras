@@ -19,6 +19,10 @@ class Credentials:
     def google_token(cls) -> str:
         return os.getenv("GOOGLE_TOKEN")
 
+    @classmethod
+    def pinecone_api_key(cls) -> str:
+        return os.getenv("PINECONE_API_KEY")
+
 
 class EnvVariables:
 

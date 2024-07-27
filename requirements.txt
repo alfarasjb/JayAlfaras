@@ -9,5 +9,6 @@ google-api-python-client==2.137.0
 pytz==2024.1
 python-dateutil==2.9.0.post0
 langchain==0.2.11
-langchain_community==0.2.10
-langchain_openai==0.1.17
+langchain-community==0.2.10
+langchain-openai==0.1.17
+pinecone-client==5.0.0
