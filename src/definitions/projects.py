@@ -1,7 +1,7 @@
-PARKER_AI_TECHNOLOGIES = ["Python", "OpenAI", "Retell", "FastAPI", "Google Calendar API", "Calendly API"]
+PETE_AI_TECHNOLOGIES = ["Python", "OpenAI", "Retell", "FastAPI", "Google Calendar API", "Calendly API"]
 
-PARKER_AI_DETAILS = """
-Using RetellAI, Parker is an AI customer service agent to aid in addressing customer inquiries about a company's services, 
+PETE_AI_DETAILS = """
+Using RetellAI, Pete is an AI customer service agent to aid in addressing customer inquiries about a company's services, 
 and is also capable of booking meetings with Google Calendar and Google Meet.
 """
 
@@ -39,10 +39,11 @@ user experiences.
 
 PROJECTS = [
     {
-        "title": "ParkerAI",
+        "title": "PeteAI",
         "description": "An AI Customer Service agent",
-        "technologies": PARKER_AI_TECHNOLOGIES,
-        "details": PARKER_AI_DETAILS
+        "technologies": PETE_AI_TECHNOLOGIES,
+        "details": PETE_AI_DETAILS,
+        "link": "https://github.com/alfarasjb/Pete-AI"
     },
     {
         "title": "LLM Finance Tracker",
@@ -62,6 +63,7 @@ PROJECTS = [
         "description": "Data pipeline for OHLCV data for MetaTrader5.",
         "technologies": ["Python", "MetaTrader5 API"],
         "details": MT5_DATALOADER_DETAILS,
+        "link": "https://github.com/alfarasjb/MT5-Dataloader"
     },
     {
         "title": "ML Text Classification",
