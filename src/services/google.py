@@ -1,9 +1,11 @@
 import json
 import logging
+from typing import Optional
 
 from dateutil import parser
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import Resource
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
@@ -16,24 +18,31 @@ class GoogleAPI:
     def __init__(self):
         self.scopes = ["https://www.googleapis.com/auth/calendar"]
         self._credentials = self._authenticate()
-        self.calendar = build(serviceName="calendar", version="v3", credentials=self._credentials)
+        self.calendar = self._calendar()
 
-    def _authenticate(self):
+    def _authenticate(self) -> Credentials:
         token_json = json.loads(Creds.google_token())
         creds = Credentials.from_authorized_user_info(token_json, scopes=self.scopes)
         return creds
 
-    def existing_events(self, time: str) -> bool:
+    def _calendar(self) -> Optional[Resource]:
+        try:
+            return build(serviceName="calendar", version="v3", credentials=self._credentials)
+        except Exception as e:
+            logger.error(f"Failed to generate calendar. An unknown error occurred: {e}")
+
+    def existing_events(self, time: str) -> Optional[bool]:
         try:
             events_result = self.calendar.events().list(
                 calendarId="primary",
                 timeMin=time,
-                maxResults=1,
+                maxResults=10,
                 singleEvents=True,
                 orderBy="startTime"
             ).execute()
 
             events = events_result.get("items", [])
+            print(events)
             if not events:
                 logger.info("No upcoming events found.")
                 return False
@@ -47,6 +56,8 @@ class GoogleAPI:
             return False
         except HttpError as error:
             logger.error(f"An error occurred: {error}")
+        except Exception as e:
+            logger.error(f"Failed to get existing events. An unknown error occurred: {e}")
 
     def generate_token_from_credentials(self):
         # Only call this locally
@@ -55,7 +66,7 @@ class GoogleAPI:
         with open("token.json", "w") as token:
             token.write(creds.to_json())
 
-    def create_meeting(self, meeting_start: str, meeting_end: str):
+    def create_meeting(self, meeting_start: str, meeting_end: str, email_address: str) -> bool:
         # Time format: ISO 8601
         # Check for conflicts
         conflicts = self.existing_events(meeting_start)
@@ -63,9 +74,12 @@ class GoogleAPI:
             logging.info(f"Meeting conflicts found: {conflicts}")
             return False
         try:
+            logger_string = ("Attempting to create a meeting on Google Calendar."
+                             f"Meeting Start: {meeting_start}, Meeting End: {meeting_end}, Requested by: {email_address}")
+            logger.info(logger_string)
             event = {
                 "summary": "30 minute Consultancy Call",
-                "description": "PioneerDevAI Consulting Call",
+                "description": "Consultancy Call",
                 "colorId": 6,
                 "start": {
                     "dateTime": meeting_start,
@@ -76,7 +90,8 @@ class GoogleAPI:
                     "timeZone": "Asia/Singapore"
                 },
                 "attendees": [
-                    {"email": "jayalfaras@gmail.com"}
+                    {"email": "jayalfaras@gmail.com"},
+                    {"email": email_address}
                 ],
                 "conferenceData": {
                     "createRequest": {
@@ -95,4 +110,6 @@ class GoogleAPI:
         except HttpError as error:
             logger.error(f"An error occurred: {error}")
             return False
-
+        except Exception as e:
+            logger.error(f"An unknown error occurred: {e}")
+            return False
